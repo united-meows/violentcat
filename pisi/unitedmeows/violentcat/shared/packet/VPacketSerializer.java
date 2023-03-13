@@ -79,7 +79,7 @@ public class VPacketSerializer {
                         return new Pair<PacketHeaders, VPacket>(capsule.get().header, packet);
                     }
                 }
-                
+
             }
             break;
             case SELF:

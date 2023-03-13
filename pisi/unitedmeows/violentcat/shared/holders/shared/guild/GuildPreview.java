@@ -4,11 +4,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import pisi.unitedmeows.violentcat.shared.action.Action;
+import pisi.unitedmeows.violentcat.shared.holders.bot.ClientOwned;
 import pisi.unitedmeows.violentcat.shared.stamp.OnlyLibCalls;
 
 import java.util.Arrays;
 
-public class GuildPreview {
+public class GuildPreview extends ClientOwned {
 
     @Expose private String id;
     @Expose private String name;
@@ -40,8 +42,48 @@ public class GuildPreview {
     }
 
 
-    // TODO: fullInfo() method?
+    public Action<Guild> fullInfo() {
+        if (botInstance().isBot())
+            return botInstance().guild(id);
 
+        return null;
+    }
+
+    public String id() {
+        return id;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public String iconId() {
+        return iconId;
+    }
+
+    public String splash() {
+        return splash;
+    }
+
+    public String discoverySplash() {
+        return discoverySplash;
+    }
+
+    public String[] features() {
+        return features;
+    }
+
+    public int approxMemberCount() {
+        return approxMemberCount;
+    }
+
+    public int approxPresenceCount() {
+        return approxPresenceCount;
+    }
+
+    public String description() {
+        return description;
+    }
 
     @Override
     public String  toString() {

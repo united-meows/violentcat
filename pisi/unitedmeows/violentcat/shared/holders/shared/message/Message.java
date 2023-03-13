@@ -2,7 +2,8 @@ package pisi.unitedmeows.violentcat.shared.holders.shared.message;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import pisi.unitedmeows.violentcat.shared.holders.bot.BotObject;
+import pisi.unitedmeows.violentcat.shared.action.Action;
+import pisi.unitedmeows.violentcat.shared.holders.bot.ClientOwned;
 import pisi.unitedmeows.violentcat.shared.holders.shared.user.BasicUser;
 import pisi.unitedmeows.violentcat.shared.holders.shared.embed.Embed;
 import pisi.unitedmeows.violentcat.shared.stamp.OnlyLibCalls;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /* todo for GuildMessage, extend this class and add guildId and don't forget to add getGuild() that returns Guild object */
-public class Message extends BotObject {
+public class Message extends ClientOwned {
 
     @Expose private String id;
     @Expose private int type;
@@ -43,6 +44,49 @@ public class Message extends BotObject {
     }
     public static Message create() {
         return new Message();
+    }
+
+
+    public Action<Boolean> delete() {
+        if (owner().isBot()) {
+            botInstance().deleteMessage(channelId(), id);
+        }
+        return null;
+    }
+
+    public Action<Message> reply(String content) {
+        if (owner().isBot())
+            return botInstance().reply(channelId, id, new Message(content));
+        return null;
+    }
+
+
+    public Action<Message> reply(Message message) {
+        if (owner().isBot())
+            return botInstance().reply(channelId, id, message);
+        return null;
+    }
+
+
+
+    public Action<Message> reply(Message message, Embed... embeds) {
+        if (owner().isBot())
+            return botInstance().send(channelId, message.reference(id), Arrays.stream(embeds).iterator());
+        return null;
+    }
+
+
+    public Action<Message> reply(String content, Embed... embeds) {
+        if (owner().isBot())
+            return botInstance().send(channelId, new Message(content).reference(id), Arrays.stream(embeds).iterator());
+        return null;
+    }
+
+
+    public Action<Message> reply(Embed... embeds) {
+        if (owner().isBot())
+            return botInstance().send(channelId, new Message("").reference(id), Arrays.stream(embeds).iterator());
+        return null;
     }
 
     /* components */
@@ -95,7 +139,7 @@ public class Message extends BotObject {
         return flags;
     }
 
-    public MessageReference referenceMessage() {
+    public MessageReference reference() {
         return referenceMessage;
     }
 
@@ -125,7 +169,7 @@ public class Message extends BotObject {
         return this;
     }
 
-    public Message referenceMessage(String messageId) {
+    public Message reference(String messageId) {
         referenceMessage = new MessageReference();
         referenceMessage.messageId(messageId);
         return this;

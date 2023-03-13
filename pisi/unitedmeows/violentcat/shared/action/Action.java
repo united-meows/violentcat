@@ -66,7 +66,7 @@ public abstract class Action<Result> implements Runnable {
         return this;
     }
 
-    public static Action<?> completedTask(final Object obj) {
+    public static <X> Action<X> completedTask(final Object obj) {
         return new Action() {
             @Override
             public void run() {

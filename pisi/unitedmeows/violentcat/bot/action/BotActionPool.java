@@ -12,6 +12,7 @@ public class BotActionPool extends ActionPool<Ratelimits> {
         registerRateListener(Ratelimits.APPLICATION, new RateListener(this, Ratelimits.APPLICATION, 10, 1000));
         registerRateListener(Ratelimits.GUILD, new VictimRateListener(this, Ratelimits.GUILD, 5, 1000));
         registerRateListener(Ratelimits.MESSAGE_SENT, new VictimRateListener(this, Ratelimits.MESSAGE_SENT, 5, 5000));
+        registerRateListener(Ratelimits.CHANNEL, new VictimRateListener(this, Ratelimits.CHANNEL, 5, 5000));
     }
 
 }

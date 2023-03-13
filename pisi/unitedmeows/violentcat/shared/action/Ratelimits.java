@@ -10,6 +10,9 @@ public enum Ratelimits {
     @Shared
     MESSAGE_SENT,
 
+    @Shared
+    CHANNEL,
+
 
     @Shared
     USER,

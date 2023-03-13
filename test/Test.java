@@ -4,7 +4,12 @@ import pisi.unitedmeows.violentcat.bot.DiscordBot;
 import pisi.unitedmeows.violentcat.bot.DiscordBotBuilder;
 import pisi.unitedmeows.violentcat.shared.holders.Availability;
 import pisi.unitedmeows.violentcat.shared.holders.Status;
+import pisi.unitedmeows.violentcat.shared.holders.shared.channel.Channel;
+import pisi.unitedmeows.violentcat.shared.holders.shared.channel.ChannelBuilder;
+import pisi.unitedmeows.violentcat.shared.holders.shared.channel.TextChannel;
 import pisi.unitedmeows.violentcat.shared.holders.shared.embed.Embed;
+import pisi.unitedmeows.violentcat.shared.holders.shared.guild.ChannelType;
+import pisi.unitedmeows.violentcat.shared.holders.shared.guild.Guild;
 import pisi.unitedmeows.violentcat.shared.holders.shared.message.Message;
 import pisi.unitedmeows.violentcat.shared.holders.shared.message.MessageReference;
 import pisi.unitedmeows.violentcat.utils.DiscordHelper;
@@ -16,6 +21,7 @@ import pisi.unitedmeows.yystal.utils.kThread;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
 
 public class Test {
 
@@ -34,8 +40,8 @@ public class Test {
 
         /* create bot instance */
         DiscordBot discordBot = DiscordBotBuilder.create()
-                .token("OTMxMTgwNDA3Njk5OTU5ODc4.GlTlp2.n1_Be9i_uYLWsnJp8LXlg5-eyx1_yHxFWwnqs0")
-                .intents(45569)
+                .token("")
+                .intents(65253)
                 .onMobile(true)
                 .build();
 
@@ -44,12 +50,23 @@ public class Test {
 
         /* .await makes the thread wait until the task has complete and returns the api's response */
         /* if you don't want to hang the thread just use .then(Supplier) method */
-        final Message sentMessage = discordBot.send("931282704014659676", "Hello world").await();
-        discordBot.send("931282704014659676", embed).await();
 
+        final Guild guild = discordBot.guild("931282703477784690").await();
+
+        discordBot.send("931282704014659676", "Deleting 'erik' channels");
+        for (Channel channel : guild.channels().await()) {
+            System.out.println(channel.name());
+            if (channel.name().equalsIgnoreCase("erik"))
+                channel.delete();
+        }
+
+
+        kThread.sleep(5000);
+        discordBot.send("931282704014659676", "Creating 'erik' channels");
+        
         /* bot's presence */
         discordBot.presence(Availability.ONLINE, Status.NOTHING /*,"github.com/united-meows/violentcat", "https://twitch.tv/slowcheetah"*/);
-        kThread.sleep_untill(() -> true);
+        kThread.sleep_till(() -> true);
     }
 
 

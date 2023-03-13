@@ -1,6 +1,8 @@
 package pisi.unitedmeows.violentcat.bot.gateway;
 
 import pisi.unitedmeows.violentcat.bot.DiscordBot;
+import pisi.unitedmeows.violentcat.shared.holders.shared.guild.DetailedGuild;
+import pisi.unitedmeows.violentcat.shared.holders.shared.guild.Guild;
 import pisi.unitedmeows.violentcat.shared.packet.NetworkHandler;
 import pisi.unitedmeows.violentcat.shared.packet.PacketHeaders;
 import pisi.unitedmeows.violentcat.shared.packet.impl.server.VGuildCreatePacket;
@@ -22,13 +24,14 @@ public class BotNetworkHandler extends NetworkHandler {
 
     @RegisterProcessor(PacketHeaders.GUILD_CREATE)
     public void messageProcessor(VGuildCreatePacket packet) {
+        packet.guild().bind(discordBot);
         discordBot.guilds().add(packet.guild());
         System.out.println(packet.guild());
     }
 
     @RegisterProcessor(PacketHeaders.MESSAGE_CREATE)
     public void messageProcessor(VMessageCreatePacket packet) {
-        System.out.println("Received message ------");
+        packet.message().bind(discordBot);
         System.out.println(packet.message());
     }
 
@@ -43,6 +46,4 @@ public class BotNetworkHandler extends NetworkHandler {
             discordBot.gateway().sequence(packet.sequence());
             discordBot.gateway().beatNext();
     }
-
-
 }

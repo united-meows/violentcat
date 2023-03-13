@@ -3,13 +3,17 @@ package pisi.unitedmeows.violentcat.shared.holders.shared.guild;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import pisi.unitedmeows.violentcat.shared.action.Action;
+import pisi.unitedmeows.violentcat.shared.holders.bot.ClientOwned;
 import pisi.unitedmeows.violentcat.shared.holders.shared.Role;
+import pisi.unitedmeows.violentcat.shared.holders.shared.channel.Channel;
+import pisi.unitedmeows.violentcat.shared.holders.shared.channel.ChannelBuilder;
 import pisi.unitedmeows.violentcat.shared.stamp.OnlyLibCalls;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Guild {
+public class Guild extends ClientOwned {
 
     @Expose protected String id;
     @Expose protected String name;
@@ -98,12 +102,29 @@ public class Guild {
     @SerializedName("approximate_presence_count")
     @Expose protected int approxPresenceCount;
 
+    public Action<List<Channel>> channels() {
+        if (botInstance().isBot()) {
+            return botInstance().guildChannels(id);
+        }
+        return null;
+    }
+
+
     @OnlyLibCalls
     @Deprecated
     public void __setup(JsonObject object) {
 
     }
 
+    public String id() {
+        return id;
+    }
+
+    public Action<Channel> createChannel(ChannelBuilder channelBuilder) {
+        if (owner().isBot())
+            return botInstance().createChannel(id, channelBuilder);
+        return null;
+    }
 
     @Override
     public String toString() {
