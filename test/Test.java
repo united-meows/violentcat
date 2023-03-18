@@ -40,7 +40,7 @@ public class Test {
 
         /* create bot instance */
         DiscordBot discordBot = DiscordBotBuilder.create()
-                .token("")
+                .token("TOKEN")
                 .intents(65253)
                 .onMobile(true)
                 .build();
@@ -48,21 +48,20 @@ public class Test {
        /* gateway login */
         discordBot.login();
 
+        discordBot.eventSystem().subscribeAll(new EventListener());
+
+
         /* .await makes the thread wait until the task has complete and returns the api's response */
         /* if you don't want to hang the thread just use .then(Supplier) method */
 
         final Guild guild = discordBot.guild("931282703477784690").await();
 
-        discordBot.send("931282704014659676", "Deleting 'erik' channels");
         for (Channel channel : guild.channels().await()) {
-            System.out.println(channel.name());
-            if (channel.name().equalsIgnoreCase("erik"))
-                channel.delete();
+            channel.edit().name("kedi").end();
         }
 
 
         kThread.sleep(5000);
-        discordBot.send("931282704014659676", "Creating 'erik' channels");
         
         /* bot's presence */
         discordBot.presence(Availability.ONLINE, Status.NOTHING /*,"github.com/united-meows/violentcat", "https://twitch.tv/slowcheetah"*/);

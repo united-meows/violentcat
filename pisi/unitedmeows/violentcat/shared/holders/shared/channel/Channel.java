@@ -14,6 +14,10 @@ public class Channel extends ClientOwned {
 
     @Expose protected String id;
     @Expose protected String name;
+    @Expose @SerializedName("parent_id") private String parentId;
+    @Expose @SerializedName("guild_id") private String guildId;
+    @Expose protected int position;
+    @Expose protected int flags;
 
     public VoiceChannel asVoiceChannel() {
         return (VoiceChannel) this;
@@ -25,6 +29,10 @@ public class Channel extends ClientOwned {
 
     public CategoryChannel asCategoryChannel() {
         return (CategoryChannel) this;
+    }
+
+    public <X extends Channel> EditChannel<X> edit() {
+        return new EditChannel<X>((X) this, botInstance());
     }
 
     public ChannelType type() {
@@ -40,6 +48,14 @@ public class Channel extends ClientOwned {
             return botInstance().deleteChannel(id);
         }
         return null;
+    }
+
+    public String parentId() {
+        return parentId;
+    }
+
+    public String guildId() {
+        return guildId;
     }
 
     @OnlyLibCalls

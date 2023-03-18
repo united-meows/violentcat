@@ -28,4 +28,36 @@ public class Author {
         sb.append('}');
         return sb.toString();
     }
+
+    public String id() {
+        return id;
+    }
+
+    public String username() {
+        return username;
+    }
+
+    public String displayName() {
+        return displayName;
+    }
+
+    public String avatar() {
+        return avatar;
+    }
+
+    public int avatarDecoration() {
+        return avatarDecoration;
+    }
+
+    public String discriminator() {
+        return discriminator;
+    }
+
+    public int publicFlags() {
+        return publicFlags;
+    }
+
+    public boolean isBot() {
+        return bot;
+    }
 }

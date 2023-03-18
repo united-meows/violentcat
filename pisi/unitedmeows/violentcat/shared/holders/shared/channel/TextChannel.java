@@ -18,11 +18,7 @@ import java.util.List;
 public class TextChannel extends Channel  {
 
     @Expose @SerializedName("last_message_id") private String lastMessageId;
-    @Expose private int position;
-    @Expose private int flags;
-    @Expose @SerializedName("parent_id") private String parentId;
     @Expose private String topic;
-    @Expose @SerializedName("guild_id") private String guildId;
     @Expose @SerializedName("last_pin_timestamp") private String last_pin_time;
     @Expose @SerializedName("rate_limit_per_user") private int rateLimitPerUser;
     @Expose private boolean nsfw;
@@ -129,16 +125,8 @@ public class TextChannel extends Channel  {
         return flags;
     }
 
-    public String parentId() {
-        return parentId;
-    }
-
     public String topic() {
         return topic;
-    }
-
-    public String guildId() {
-        return guildId;
     }
 
     public String last_pin_time() {

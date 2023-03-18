@@ -1,8 +1,8 @@
 package pisi.unitedmeows.violentcat.bot.gateway;
 
 import pisi.unitedmeows.violentcat.bot.DiscordBot;
-import pisi.unitedmeows.violentcat.shared.holders.shared.guild.DetailedGuild;
-import pisi.unitedmeows.violentcat.shared.holders.shared.guild.Guild;
+import pisi.unitedmeows.violentcat.bot.events.MessageEvent;
+import pisi.unitedmeows.violentcat.shared.holders.shared.message.Message;
 import pisi.unitedmeows.violentcat.shared.packet.NetworkHandler;
 import pisi.unitedmeows.violentcat.shared.packet.PacketHeaders;
 import pisi.unitedmeows.violentcat.shared.packet.impl.server.VGuildCreatePacket;
@@ -10,8 +10,6 @@ import pisi.unitedmeows.violentcat.shared.packet.impl.server.VHeartbeatConfirmPa
 import pisi.unitedmeows.violentcat.shared.packet.impl.server.VHeartbeatPacket;
 import pisi.unitedmeows.violentcat.shared.packet.impl.server.VMessageCreatePacket;
 import pisi.unitedmeows.violentcat.shared.stamp.RegisterProcessor;
-
-import java.util.Random;
 
 public class BotNetworkHandler extends NetworkHandler {
 
@@ -31,8 +29,10 @@ public class BotNetworkHandler extends NetworkHandler {
 
     @RegisterProcessor(PacketHeaders.MESSAGE_CREATE)
     public void messageProcessor(VMessageCreatePacket packet) {
-        packet.message().bind(discordBot);
-        System.out.println(packet.message());
+        final Message message = packet.message();
+
+       message.bind(discordBot);
+        discordBot.eventSystem().fire(new MessageEvent(message));
     }
 
     @RegisterProcessor(PacketHeaders.HEARTBEAT_INTERVAL)

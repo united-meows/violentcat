@@ -2,6 +2,7 @@ package pisi.unitedmeows.violentcat.bot;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import pisi.unitedmeows.eventapi.system.BasicEventSystem;
 import pisi.unitedmeows.violentcat.bot.action.BotActionPool;
 import pisi.unitedmeows.violentcat.bot.gateway.BotGateway;
 import pisi.unitedmeows.violentcat.bot.gateway.BotNetworkHandler;
@@ -44,12 +45,15 @@ public class DiscordBot extends DiscordClient {
     protected YWebClient client;
     protected YSimpleWebClient simpleWebClient;
     protected BotCache cache;
+    protected BasicEventSystem eventSystem;
 
     protected BotActionPool actionPool;
     protected List<DetailedGuild> guilds = new ArrayList<>();
 
     DiscordBot(DiscordBotBuilder _builder) {
         super(ClientType.BOT);
+
+        eventSystem = new BasicEventSystem();
         cache = new BotCache();
 
         try {
@@ -277,6 +281,8 @@ public class DiscordBot extends DiscordClient {
 
             final YWebResponse response = client.get(String.format("https://discord.com/api/v10/guilds/%s/channels", id)).run();
             final String result = response.asString();
+            System.out.println("CHANNEL RESULT");
+            System.out.println(result);
             JsonArray array = (JsonArray) Jsons.parser.parse(result);
             List<Channel> channels = new ArrayList<>(array.size());
 
@@ -365,7 +371,12 @@ public class DiscordBot extends DiscordClient {
     }
 
     @Override
-    public ActionPool<?> actionPool() {
+    public ActionPool<Ratelimits> actionPool() {
         return actionPool;
+    }
+
+    @Override
+    public BasicEventSystem eventSystem() {
+        return eventSystem;
     }
 }

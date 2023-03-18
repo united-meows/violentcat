@@ -13,11 +13,6 @@ import java.util.List;
 
 public class VoiceChannel extends Channel  {
 
-    @Expose private int position;
-    @Expose private int flags;
-    @Expose @SerializedName("parent_id") private String parentId;
-    @Expose @SerializedName("guild_id") private String guildId;
-
     @Deprecated
     public Action<Message> reply(String messageId, String content) {
         if (owner().isBot())
