@@ -18,13 +18,15 @@ public class Test {
 
 
 
-    public static void main(String[] args) throws Exception  {
+    public static void main(String[] args)  {
         /* create bot instance */
         DiscordBot discordBot = DiscordBotBuilder.create()
-                .token("token_here")
+                .token("OTMxMTgwNDA3Njk5OTU5ODc4.GliaAu.nuziNCyqK1bdkeTvo4Che4vDSizujbm6YFm55o")
                 .intents(65253)
                 .onMobile(true)
                 .build();
+
+        discordBot.send("931282704014659676", "god is awakening");
 
 
        /* gateway login */

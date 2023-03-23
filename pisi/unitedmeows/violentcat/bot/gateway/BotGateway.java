@@ -9,7 +9,6 @@ import pisi.unitedmeows.violentcat.bot.DiscordBot;
 import pisi.unitedmeows.violentcat.shared.ClientType;
 import pisi.unitedmeows.violentcat.shared.packet.*;
 import pisi.unitedmeows.violentcat.shared.packet.impl.client.VHeartbeatAckPacket;
-import pisi.unitedmeows.violentcat.shared.packet.impl.client.VPresenceUpdatePacket;
 import pisi.unitedmeows.violentcat.shared.stamp.RegisterPacket;
 import pisi.unitedmeows.yystal.YSettings;
 import pisi.unitedmeows.yystal.YYStal;

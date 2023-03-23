@@ -30,6 +30,7 @@ public class VPacketSerializer {
         registerPacket(ClientType.BOT, VThreadCreatePacket.class);
         registerPacket(ClientType.BOT, VThreadDeletePacket.class);
         registerPacket(ClientType.BOT, VGuildCreatePacket.class);
+        registerPacket(ClientType.BOT, VInteractionCreatePacket.class);
     }
 
     static void registerPacket(ClientType _type, Class<? extends VPacket> _clazz) {
