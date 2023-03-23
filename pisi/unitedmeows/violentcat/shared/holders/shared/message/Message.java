@@ -4,8 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import pisi.unitedmeows.violentcat.shared.action.Action;
 import pisi.unitedmeows.violentcat.shared.holders.bot.ClientOwned;
+import pisi.unitedmeows.violentcat.shared.holders.shared.message.component.Component;
 import pisi.unitedmeows.violentcat.shared.holders.shared.user.BasicUser;
-import pisi.unitedmeows.violentcat.shared.holders.shared.embed.Embed;
+import pisi.unitedmeows.violentcat.shared.holders.shared.message.embed.Embed;
 import pisi.unitedmeows.violentcat.shared.stamp.OnlyLibCalls;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class Message extends ClientOwned {
     @Expose @SerializedName("mention_everyone") private boolean mentionEveryone;
     @Expose private int flags;
     @Expose @SerializedName("message_reference") private MessageReference referenceMessage;
+    @Expose private List<Component> components = new ArrayList<>();
 
     @Deprecated
     @OnlyLibCalls
@@ -90,6 +92,14 @@ public class Message extends ClientOwned {
     }
 
     /* components */
+    public Message add(Component component) {
+        components.add(component);
+        return this;
+    }
+
+    public List<Component> components() {
+        return components;
+    }
 
     public String id() {
         return id;

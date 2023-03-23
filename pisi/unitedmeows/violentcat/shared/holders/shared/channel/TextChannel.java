@@ -3,12 +3,8 @@ package pisi.unitedmeows.violentcat.shared.holders.shared.channel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import pisi.unitedmeows.violentcat.shared.action.Action;
-import pisi.unitedmeows.violentcat.shared.action.Ratelimits;
-import pisi.unitedmeows.violentcat.shared.holders.shared.embed.Embed;
+import pisi.unitedmeows.violentcat.shared.holders.shared.message.embed.Embed;
 import pisi.unitedmeows.violentcat.shared.holders.shared.message.Message;
-import pisi.unitedmeows.violentcat.utils.DiscordHelper;
-import pisi.unitedmeows.violentcat.utils.GsonWrap;
-import pisi.unitedmeows.violentcat.utils.Jsons;
 import pisi.unitedmeows.yystal.hook.YString;
 
 import java.util.Arrays;

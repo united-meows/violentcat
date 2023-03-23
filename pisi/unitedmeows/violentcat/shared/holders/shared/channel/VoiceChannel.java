@@ -1,9 +1,7 @@
 package pisi.unitedmeows.violentcat.shared.holders.shared.channel;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import pisi.unitedmeows.violentcat.shared.action.Action;
-import pisi.unitedmeows.violentcat.shared.holders.shared.embed.Embed;
+import pisi.unitedmeows.violentcat.shared.holders.shared.message.embed.Embed;
 import pisi.unitedmeows.violentcat.shared.holders.shared.message.Message;
 import pisi.unitedmeows.yystal.hook.YString;
 

@@ -1,10 +1,12 @@
-package pisi.unitedmeows.violentcat.shared.holders.shared.embed;
+package pisi.unitedmeows.violentcat.shared.holders.shared.message.embed;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -43,14 +45,19 @@ public class Embed {
 
     @Expose
     private EmbedMedia image;
+
     @Expose
     private EmbedMedia thumbnail;
+
     @Expose
     private EmbedMedia video;
+
     @Expose
     private EmbedProvider provider;
+
     @Expose
     private EmbedAuthor author;
+
 
     @Expose
     private List<EmbedField> fields;
@@ -70,13 +77,13 @@ public class Embed {
 
     public Embed thumbnail(Consumer<EmbedMedia> _thumbnail) {
         if (thumbnail == null) thumbnail = new EmbedMedia();
-        _thumbnail.accept(image);
+        _thumbnail.accept(thumbnail);
         return this;
     }
 
     public Embed video(Consumer<EmbedMedia> _video) {
         if (video == null) video = new EmbedMedia();
-        _video.accept(image);
+        _video.accept(video);
         return this;
     }
 
@@ -106,9 +113,25 @@ public class Embed {
         return this;
     }
 
+    public Embed addField(Consumer<EmbedField> _field) {
+        if (fields == null)
+            fields = new ArrayList<>();
+        EmbedField embedField = new EmbedField();
+        _field.accept(embedField);
+        fields.add(embedField);
+        return this;
+    }
+
+    public List<EmbedField> fields() {
+        return fields;
+    }
 
     @Override
     public String toString() {
         return gson.toJson(this);
+    }
+
+    public JsonObject toObject() {
+        return gson.toJsonTree(this).getAsJsonObject();
     }
 }

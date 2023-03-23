@@ -22,7 +22,7 @@ import pisi.unitedmeows.violentcat.shared.holders.shared.guild.ChannelType;
 import pisi.unitedmeows.violentcat.shared.holders.shared.guild.DetailedGuild;
 import pisi.unitedmeows.violentcat.shared.holders.shared.guild.Guild;
 import pisi.unitedmeows.violentcat.shared.holders.shared.guild.GuildPreview;
-import pisi.unitedmeows.violentcat.shared.holders.shared.embed.Embed;
+import pisi.unitedmeows.violentcat.shared.holders.shared.message.embed.Embed;
 import pisi.unitedmeows.violentcat.shared.holders.shared.message.Message;
 import pisi.unitedmeows.violentcat.shared.packet.impl.client.VIdentifyPacket;
 import pisi.unitedmeows.violentcat.shared.packet.impl.client.VPresenceUpdatePacket;
@@ -324,6 +324,12 @@ public class DiscordBot extends DiscordClient {
         });
     }
 
+    public Action<Boolean> deleteWebhook(String guildId, String id) {
+        return actionPool().rateListener(Ratelimits.GUILD).queue(guildId, () -> {
+            return simpleWebClient().deleteRequest(DiscordHelper.route("/webhooks/%s", id)) != null;
+        });
+    }
+
     public void login() {
         gateway.connect();
     }
@@ -342,6 +348,7 @@ public class DiscordBot extends DiscordClient {
     public void presence(Availability availability, Status status) {
         gateway().prepare(new VPresenceUpdatePacket(new Presence(availability, status, ""))).queue();
     }
+
 
     public List<DetailedGuild> guilds() {
         return guilds;

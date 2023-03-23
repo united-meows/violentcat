@@ -1,4 +1,4 @@
-package pisi.unitedmeows.violentcat.shared.holders.shared.embed;
+package pisi.unitedmeows.violentcat.shared.holders.shared.message.embed;
 
 import com.google.gson.annotations.Expose;
 
